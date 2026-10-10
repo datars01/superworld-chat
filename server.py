@@ -2,6 +2,7 @@ import asyncio
 import json
 import uuid
 import colorsys
+import os
 import websockets
 
 clients = {}
@@ -209,12 +210,12 @@ async def main():
     async with websockets.serve(
         handle_client,
         "0.0.0.0",
-        8765,
+        int(os.environ.get("PORT", "8765")),
         max_size=4096,
         ping_interval=20,
         ping_timeout=20,
     ):
-        print("✅ سيرفر Super World يعمل على المنفذ 8765")
+        print(f"✅ سيرفر Super World يعمل على المنفذ {os.environ.get('PORT', '8765')}")
         print("👤 نظام اليوزرات والألوان وسجل آخر 100 رسالة جاهز")
         await asyncio.Future()
 
